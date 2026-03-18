@@ -23,7 +23,7 @@ export interface Transaction {
     entries: LedgerEntry[];
 }
 
-export interface CreateTransactinPayload{
+export interface CreateTransactionPayload{
     description: string;
     entries: {
         account_id: string;
