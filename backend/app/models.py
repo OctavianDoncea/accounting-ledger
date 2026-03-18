@@ -1,6 +1,6 @@
 import uuid
-from datetime import datetime
-from sqlalchemy import Column, String, BigInteger, DateTime, ForeignKey, Enum, JSON, true
+from datetime import datetime, timezone
+from sqlalchemy import Column, String, BigInteger, DateTime, ForeignKey, Enum, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 import enum
@@ -32,7 +32,7 @@ class Transaction(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     description = Column(String, nullable=False)
-    posted_at = Column(DateTime, default=datetime.now(datetime.timezone.utc), nullable=False)
+    posted_at = Column(DateTime, default=datetime.now(timezone.utc), nullable=False)
     metadata_ = Column('metadata', JSON, default={})
 
     entries = relationship('LedgerEntry', back_populates='transaction', cascade='all, delete-orphan')
