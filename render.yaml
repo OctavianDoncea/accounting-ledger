@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: the-ledger-backend
+    runtime: docker
+    dockerfilePath: ./nackend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: the-ledger-db
+          property: connectionString
+
+  - type: web
+    name: the-ledger-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+
+databases:
+  - name: the-ledger-db
+    plan: free
