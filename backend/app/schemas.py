@@ -1,4 +1,4 @@
-from pydantic import BaseModel, UUID4, field_validator
+from pydantic import BaseModel, UUID4, field_validator, computed_field
 from typing import List, Optional
 from datetime import datetime
 from .models import AccountType, Direction
@@ -13,9 +13,9 @@ class AccountCreate(AccountBase):
 class AccountResponse(AccountBase):
     id: UUID4
     balance: int
-    balance_display: str
     model_config = {'from_attributes': True}
 
+    @computed_field
     @property
     def balance_display(self) -> str:
         return f'${self.balance / 100:,.2f}'
